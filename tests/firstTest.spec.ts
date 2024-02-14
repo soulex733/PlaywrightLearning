@@ -1,4 +1,3 @@
-import { BaseCdkCell } from '@angular/cdk/table'
 import {test, expect} from '@playwright/test'
 
 test.beforeEach(async({page}) => {
@@ -7,7 +6,7 @@ test.beforeEach(async({page}) => {
     await page.getByText('Form Layouts').click()
 })
 
-test('Locator syntax rules', async ({page}) => {
+test('Locator syntax rules', async({page}) => {
     //by Tag name
     page.locator('input')
 
@@ -33,7 +32,7 @@ test('Locator syntax rules', async ({page}) => {
     page.locator(':text-is("Using the Grid")')
 })
 
-test('User facing locators', async ({page}) => {    
+test('User facing locators', async({page}) => {    
     await page.getByRole('textbox', {name: "Email"}).first().click()
     await page.getByRole('button', {name: "Sign in"}).first().click()
 
@@ -48,14 +47,14 @@ test('User facing locators', async ({page}) => {
     page.getByTitle('IoT Dashboard')
 })
     
-test('Locate child elements', async ({page}) => {
+test('Locate child elements', async({page}) => {
     await page.locator('nb-card nb-radio :text-is("Option 1")').click()
 
     //Combination of locators
     await page.locator('nb-card').getByRole('button', {name: "Sign in"}).first().click()
 })
 
-test('Locate parent elements', async ({page})=> {
+test('Locate parent elements', async({page})=> {
     //locating an email field by specifying a parent element via text
     await page.locator('nb-card', {hasText: "Using the Grid"}).getByRole('textbox', {name: "Email"}).click()
 
@@ -75,7 +74,7 @@ test('Locate parent elements', async ({page})=> {
     await page.locator(':text-is("Using the Grid")').locator('..').getByRole('textbox', {name: "Email"}).click()
 })
 
-test('Reusing the locators', async ({page}) => {
+test('Reusing the locators', async({page}) => {
     //Creating a constant with a locator for Basic Form.
     const basicForm = page.locator('nb-card').filter({hasText: "Basic form"})
     //Creating a constant with a locator for email field using basicForm constant
@@ -90,7 +89,7 @@ test('Reusing the locators', async ({page}) => {
     await expect(emailField).toHaveValue('test@test.com')
 })
 
-test('Extracting values', async ({page}) => {
+test('Extracting values', async({page}) => {
     //single text value
     const basicForm = page.locator('nb-card').filter({hasText: "Basic form"})
     const buttonText = await basicForm.locator('button').textContent()
@@ -103,7 +102,7 @@ test('Extracting values', async ({page}) => {
 
     //input field value using inputValue()
     const emailField=basicForm.getByRole('textbox', {name: "email"})
-    await emailField.fill('text@text.com')
+    await emailField.fill('text@test.com')
     const emailValue = await emailField.inputValue()
     expect(emailValue).toEqual('test@test.com')
 
