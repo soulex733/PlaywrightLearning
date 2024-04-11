@@ -8,7 +8,12 @@ export default defineConfig<TestOptions>({
   fullyParallel: true,
 
   retries: 1,
-  reporter: 'html',
+  reporter: [
+    ['json', {outputFile: 'test-results/jsonReport.json'}],
+    ['junit', {outputFile: 'test-results/junitReport.xml'}],
+    //['allure-playwright'],
+    ['html']
+],
   
   use: {
     globalsQaUrl: 'https://www.globalsqa.com/demo-site/draganddrop/',
@@ -49,6 +54,13 @@ projects: [
       use: {
         browserName: 'firefox'
       }
+    },
+    {
+      name: 'mobile',
+      testMatch: 'testMobile.spec.ts',
+      use:{
+        ...devices['iPhone 13 Pro']
+      } 
     },
 
     
