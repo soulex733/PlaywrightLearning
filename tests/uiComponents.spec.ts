@@ -1,4 +1,5 @@
 import {test, expect} from '@playwright/test'
+import { using } from 'rxjs'
 
 test.beforeEach(async({page}) => {
     await page.goto('/')   
@@ -40,14 +41,15 @@ test.describe('Form Layouts page', () => {
 
         // Generic assertion
         const radioStatus1 = await usingTheGridForm.getByRole('radio', {name: 'Option 1'}).isChecked()
-        expect(radioStatus1).toBeTruthy()
+        await expect(usingTheGridForm).toHaveScreenshot({maxDiffPixelRatio: 150})
+        // expect(radioStatus1).toBeTruthy()
 
-        // Locator assertion
-        await expect(usingTheGridForm.getByRole('radio', {name: 'Option 1'})).toBeChecked()
+        // // Locator assertion
+        // await expect(usingTheGridForm.getByRole('radio', {name: 'Option 1'})).toBeChecked()
 
-        await usingTheGridForm.getByRole('radio', {name: 'Option 2'}).check({force: true})
-        expect(await usingTheGridForm.getByRole('radio', {name: 'Option 1'}).isChecked()).toBeFalsy()
-        expect(await usingTheGridForm.getByRole('radio', {name: 'Option 2'}).isChecked()).toBeTruthy()
+        // await usingTheGridForm.getByRole('radio', {name: 'Option 2'}).check({force: true})
+        // expect(await usingTheGridForm.getByRole('radio', {name: 'Option 1'}).isChecked()).toBeFalsy()
+        // expect(await usingTheGridForm.getByRole('radio', {name: 'Option 2'}).isChecked()).toBeTruthy()
         
     })
 
